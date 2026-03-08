@@ -8,13 +8,24 @@
   </head>
   <body>
     <div class="app-shell">
-      <aside class="panel backups-panel">
+      <aside id="backupsPanel" class="panel backups-panel">
         <div class="panel-header">
           <h2>Бекапы</h2>
-          <button id="saveBackupBtn" class="btn btn-outline">Сохранить</button>
+          <div class="actions">
+            <button id="saveBackupBtn" class="btn btn-outline">Сохранить</button>
+            <button
+              id="toggleBackupsBtn"
+              class="btn btn-outline btn-icon"
+              aria-label="Свернуть или раскрыть панель бэкапов"
+              title="Свернуть/раскрыть бэкапы"
+            >
+              &laquo;
+            </button>
+          </div>
         </div>
         <div id="backupList" class="backup-list"></div>
       </aside>
+      <div id="leftResizer" class="panel-resizer" aria-hidden="true"></div>
 
       <main class="panel editor-panel">
         <div class="panel-header">
@@ -24,13 +35,12 @@
               Загрузить файл
               <input id="fileInput" type="file" accept=".txt,.md,.docx" />
             </label>
-            <button id="processBtn" class="btn btn-primary">Обработать ИИ</button>
-            <button id="applyToSourceBtn" class="btn btn-outline">Перенести в исходный</button>
+            <button id="applyToSourceBtn" class="btn btn-outline">Принять изменения</button>
           </div>
         </div>
 
         <div class="editor-grid">
-          <section class="card">
+          <section id="sourceCard" class="card">
             <h3>Исходный текст</h3>
             <div
               id="inputText"
@@ -39,8 +49,9 @@
               data-placeholder="Введите текст вручную или загрузите файл..."
             ></div>
           </section>
+          <div id="editorResizer" class="card-resizer" aria-hidden="true"></div>
 
-          <section class="card">
+          <section id="resultCard" class="card">
             <h3>Измененный текст</h3>
             <div
               id="outputText"
@@ -48,13 +59,10 @@
               contenteditable="true"
               data-placeholder="Результат AI-редактирования появится здесь..."
             ></div>
-            <div class="summary-wrap">
-              <h4>Сводка изменений</h4>
-              <pre id="changesSummary">Пока нет данных.</pre>
-            </div>
           </section>
         </div>
       </main>
+      <div id="rightResizer" class="panel-resizer" aria-hidden="true"></div>
 
       <aside class="panel chat-panel">
         <div class="panel-header">
@@ -62,6 +70,13 @@
         </div>
         <div id="chatMessages" class="chat-messages"></div>
         <div class="chat-input-wrap">
+          <div class="chat-controls">
+            <label for="chatMode">Режим:</label>
+            <select id="chatMode">
+              <option value="edit">Редактирование</option>
+              <option value="ask">Вопрос</option>
+            </select>
+          </div>
           <textarea
             id="chatInput"
             rows="3"

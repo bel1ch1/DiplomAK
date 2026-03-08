@@ -22,10 +22,10 @@ body {
 
 .app-shell {
   height: 100vh;
-  display: grid;
-  grid-template-columns: 280px 1fr 320px;
+  display: flex;
   gap: 12px;
   padding: 12px;
+  overflow: auto;
 }
 
 .panel {
@@ -35,6 +35,30 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow: auto;
+}
+
+.backups-panel {
+  flex: 0 0 280px;
+  min-width: 220px;
+  max-width: 50vw;
+}
+
+.editor-panel {
+  flex: 1;
+  min-width: 420px;
+}
+
+.chat-panel {
+  flex: 0 0 320px;
+  min-width: 260px;
+  max-width: 50vw;
+}
+
+.backups-panel.collapsed {
+  flex-basis: 52px;
+  min-width: 52px;
+  max-width: 52px;
 }
 
 .panel-header {
@@ -60,6 +84,18 @@ body {
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+.btn-icon {
+  width: 32px;
+  min-width: 32px;
+  padding: 6px;
+  line-height: 1;
+}
+
+.btn-compact {
+  height: 28px;
+  padding: 4px 6px;
 }
 
 .btn {
@@ -106,19 +142,21 @@ body {
 .editor-grid {
   flex: 1;
   min-height: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 12px;
   padding: 12px;
 }
 
 .card {
+  flex: 1 1 0;
+  min-width: 280px;
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px;
   display: flex;
   flex-direction: column;
   min-height: 0;
+  overflow: auto;
 }
 
 .card h3,
@@ -129,6 +167,7 @@ body {
 .text-editor {
   width: 100%;
   min-height: 260px;
+  resize: vertical;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 10px;
@@ -148,10 +187,6 @@ body {
   border-color: #99b4ff;
 }
 
-.summary-wrap {
-  margin-top: 10px;
-}
-
 .diff-old {
   background: #ffe4e4;
   border-radius: 4px;
@@ -162,20 +197,53 @@ body {
   border-radius: 4px;
 }
 
-#changesSummary {
-  margin: 0;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: #fafbff;
-  padding: 10px;
-  white-space: pre-wrap;
-  min-height: 90px;
-}
-
 .backup-list {
   flex: 1;
   overflow: auto;
   padding: 10px;
+}
+
+.backups-panel.collapsed h2,
+.backups-panel.collapsed #saveBackupBtn,
+.backups-panel.collapsed .backup-list {
+  display: none;
+}
+
+.backups-panel.collapsed .panel-header {
+  justify-content: center;
+  padding: 10px 6px;
+}
+
+.backups-panel.collapsed .actions {
+  justify-content: center;
+}
+
+.panel-resizer,
+.card-resizer {
+  flex: 0 0 8px;
+  border-radius: 6px;
+  background: transparent;
+  cursor: col-resize;
+  position: relative;
+}
+
+.panel-resizer::before,
+.card-resizer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 3px;
+  width: 2px;
+  border-radius: 2px;
+  background: #d8dfec;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.panel-resizer:hover::before,
+.card-resizer:hover::before {
+  opacity: 1;
 }
 
 .backup-item {
@@ -183,6 +251,19 @@ body {
   border-radius: 10px;
   padding: 10px;
   margin-bottom: 8px;
+}
+
+.backup-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.backup-title {
+  font-size: 13px;
+  line-height: 1.2;
 }
 
 .backup-meta {
@@ -231,6 +312,22 @@ body {
   gap: 8px;
 }
 
+.chat-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.chat-controls select {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
 .chat-input-wrap textarea {
   width: 100%;
   min-height: 90px;
@@ -254,16 +351,23 @@ body {
 
 @media (max-width: 1200px) {
   .app-shell {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     height: auto;
     min-height: 100vh;
   }
 
   .panel {
     min-height: 380px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .panel-resizer,
+  .card-resizer {
+    display: none;
   }
 
   .editor-grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 }

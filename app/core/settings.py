@@ -19,6 +19,8 @@ class Settings(BaseSettings):
 
     max_upload_size_mb: int = Field(default=10, ge=1, le=50)
     max_text_chars: int = Field(default=120_000, ge=1_000, le=1_000_000)
+    prompts_assets_dir: str = Field(default="app/ai_assets/prompts")
+    skills_assets_dir: str = Field(default="app/ai_assets/skills")
 
 
 @lru_cache(maxsize=1)

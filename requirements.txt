@@ -4,6 +4,7 @@ jinja2
 python-multipart
 langchain
 langgraph
+deepagents
 langchain-openai
 pydantic-settings
 python-docx
