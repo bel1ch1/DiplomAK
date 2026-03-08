@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+jinja2
+python-multipart
+langchain
+langgraph
+langchain-openai
+pydantic-settings
+python-docx

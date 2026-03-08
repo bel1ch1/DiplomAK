@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Научный AI-редактор</title>
+    <link rel="stylesheet" href="/static/css/editor.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="panel backups-panel">
+        <div class="panel-header">
+          <h2>Бекапы</h2>
+          <button id="saveBackupBtn" class="btn btn-outline">Сохранить</button>
+        </div>
+        <div id="backupList" class="backup-list"></div>
+      </aside>
+
+      <main class="panel editor-panel">
+        <div class="panel-header">
+          <h1>Онлайн редактор научных статей</h1>
+          <div class="actions">
+            <label class="file-input-label">
+              Загрузить файл
+              <input id="fileInput" type="file" accept=".txt,.md,.docx" />
+            </label>
+            <button id="processBtn" class="btn btn-primary">Обработать ИИ</button>
+            <button id="applyToSourceBtn" class="btn btn-outline">Перенести в исходный</button>
+          </div>
+        </div>
+
+        <div class="editor-grid">
+          <section class="card">
+            <h3>Исходный текст</h3>
+            <div
+              id="inputText"
+              class="text-editor"
+              contenteditable="true"
+              data-placeholder="Введите текст вручную или загрузите файл..."
+            ></div>
+          </section>
+
+          <section class="card">
+            <h3>Измененный текст</h3>
+            <div
+              id="outputText"
+              class="text-editor"
+              contenteditable="true"
+              data-placeholder="Результат AI-редактирования появится здесь..."
+            ></div>
+            <div class="summary-wrap">
+              <h4>Сводка изменений</h4>
+              <pre id="changesSummary">Пока нет данных.</pre>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <aside class="panel chat-panel">
+        <div class="panel-header">
+          <h2>Чат с AI-помощником</h2>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input-wrap">
+          <textarea
+            id="chatInput"
+            rows="3"
+            placeholder="Задайте вопрос по документу..."
+          ></textarea>
+          <button id="sendChatBtn" class="btn btn-primary">Отправить</button>
+        </div>
+      </aside>
+    </div>
+
+    <div id="toast" class="toast" hidden></div>
+    <script src="/static/js/editor.js"></script>
+  </body>
+</html>

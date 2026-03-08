@@ -1,0 +1,269 @@
+:root {
+  --bg: #f5f7fb;
+  --panel: #ffffff;
+  --border: #d9dfe9;
+  --text: #18202f;
+  --muted: #63708a;
+  --primary: #2b5cff;
+  --primary-hover: #1f49dd;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.app-shell {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  gap: 12px;
+  padding: 12px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-header h1,
+.panel-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.panel-header h3 {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-outline {
+  background: #fff;
+}
+
+.file-input-label {
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.file-input-label input {
+  display: none;
+}
+
+.editor-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.card h3,
+.card h4 {
+  margin: 0 0 8px;
+}
+
+.text-editor {
+  width: 100%;
+  min-height: 260px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+.text-editor:empty::before {
+  content: attr(data-placeholder);
+  color: #96a0b5;
+}
+
+.text-editor:focus {
+  outline: 2px solid #b9ccff;
+  border-color: #99b4ff;
+}
+
+.summary-wrap {
+  margin-top: 10px;
+}
+
+.diff-old {
+  background: #ffe4e4;
+  border-radius: 4px;
+}
+
+.diff-new {
+  background: #dff6df;
+  border-radius: 4px;
+}
+
+#changesSummary {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fafbff;
+  padding: 10px;
+  white-space: pre-wrap;
+  min-height: 90px;
+}
+
+.backup-list {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+}
+
+.backup-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 8px;
+}
+
+.backup-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.backup-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-bubble {
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 95%;
+  white-space: pre-wrap;
+}
+
+.chat-user {
+  align-self: flex-end;
+  background: var(--primary);
+  color: #fff;
+}
+
+.chat-assistant {
+  align-self: flex-start;
+  background: #eef2ff;
+}
+
+.chat-input-wrap {
+  border-top: 1px solid var(--border);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-input-wrap textarea {
+  width: 100%;
+  min-height: 90px;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.toast {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: #18202f;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+@media (max-width: 1200px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .panel {
+    min-height: 380px;
+  }
+
+  .editor-grid {
+    grid-template-columns: 1fr;
+  }
+}
